@@ -3,7 +3,8 @@
 var Game = {
     canvas : undefined,
     canvasContext : undefined,
-    recPos : 10
+    recPos : 10,
+    direction : "right"
 }
 
 Game.start = function() {
@@ -15,17 +16,22 @@ Game.start = function() {
 document.addEventListener('DOMContentLoaded', Game.start);
 
 Game.update = function() {
-    var d = new Date();
-    Game.recPos = d.getTime() % Game.canvas.width;
+    if (Game.recPos == 1150 && Game.direction == "right") {
+        Game.direction = "left";
+        
+    } else if (Game.recPos == 0 && Game.direction == "left") {
+        Game.direction = "right";
+    }
+
+    if (Game.direction == "right") {
+        Game.recPos += 10;
+    } else if (Game.direction == "left") {
+        Game.recPos -= 10;
+    }
 };
 
 Game.draw = function() {
-    if (Game.recPos < 400) {
-        Game.canvasContext.fillStyle = "pink";
-    } else {
-        Game.canvasContext.fillStyle = "blue";
-    }
-    
+    Game.canvasContext.fillStyle = "blue";
     Game.canvasContext.fillRect(Game.recPos, 0, 50, 50);
 };
 
