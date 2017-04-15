@@ -33,7 +33,8 @@ var Raquet = {
     size : 200,
 
 }
- 
+
+// object that handles user keyboard input
 var Keyboard = {
     keyDown : -1,
 }
@@ -60,7 +61,9 @@ Game.start = function() {
     Game.mainLoop();
 }
 
-// Loading the game 
+/******************************************************************  
+    Loading the game
+******************************************************************/
 document.addEventListener('DOMContentLoaded', Game.start);
 
 
@@ -102,7 +105,9 @@ Game.update = function() {
     }
 };
 
-// The main drawing function
+/******************************************************************  
+    Main drawing function
+******************************************************************/
 Game.draw = function() {
     // draw the Ball
     Game.canvasContext.fillStyle = "blue";
@@ -113,6 +118,9 @@ Game.draw = function() {
     Game.canvasContext.fillRect(Raquet.position.x, Raquet.position.y, 50, Raquet.size);
 };
 
+/******************************************************************  
+    Main loop
+******************************************************************/
 Game.mainLoop = function() {
     Game.clearCanvas();
     Game.update();
@@ -120,6 +128,9 @@ Game.mainLoop = function() {
     window.setTimeout(Game.mainLoop, 1000 / 60);
 };
 
+/******************************************************************  
+    Utility functions
+******************************************************************/
 Game.clearCanvas = function() {
     Game.canvasContext.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
 };
