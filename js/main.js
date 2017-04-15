@@ -65,10 +65,10 @@ Game.update = function() {
     }
 
     // check if the Ball has reached the top or bottom edge of the canvas, if yes then reverse
-    if (Ball.position.y == 550 && Ball.direction.y == "down") {
+    if (Ball.position.y >= 550 && Ball.direction.y == "down") {
         Ball.direction.y = "up";
         
-    } else if (Ball.position.y == 0 && Ball.direction.y == "up") {
+    } else if (Ball.position.y <= 0 && Ball.direction.y == "up") {
         Ball.direction.y = "down";
     }
 
