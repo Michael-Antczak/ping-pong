@@ -1,5 +1,8 @@
-// "use strict";
+"use strict";
 
+/******************************************************************  
+    Define objects used in the game
+******************************************************************/
 var Game = {
     canvas : undefined,
     canvasContext : undefined,
@@ -26,10 +29,18 @@ var Raquet = {
     direction : {
         x : undefined,
         y : undefined,
-    }
+    }, 
+    size : 200,
 
 }
+ 
+var Keyboard = {
+    keyDown : -1,
+}
 
+/******************************************************************  
+    Start the Game
+******************************************************************/
 Game.start = function() {
     Game.canvas = document.getElementById('myCanvas');
     Game.canvasContext = Game.canvas.getContext('2d');
@@ -52,7 +63,11 @@ Game.start = function() {
 // Loading the game 
 document.addEventListener('DOMContentLoaded', Game.start);
 
-// Update the game world
+
+
+/******************************************************************  
+    Update the game world
+******************************************************************/
 Game.update = function() {
 
     // BALL
@@ -95,7 +110,7 @@ Game.draw = function() {
 
     // draw the Raquet
     Game.canvasContext.fillStyle = "blue";
-    Game.canvasContext.fillRect(Raquet.position.x, Raquet.position.y, 50, 200);
+    Game.canvasContext.fillRect(Raquet.position.x, Raquet.position.y, 50, Raquet.size);
 };
 
 Game.mainLoop = function() {
