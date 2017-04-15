@@ -46,6 +46,10 @@ Game.start = function() {
     Game.canvas = document.getElementById('myCanvas');
     Game.canvasContext = Game.canvas.getContext('2d');
     
+    // events to handle user keyboard input
+    document.onkeydown = handleKeyDown;
+    document.onkeyup = handleKeyUp;
+
     // we want to randomize the initial direction of the ball
     // get random odd/even number and the set the direction variable
 
@@ -103,6 +107,17 @@ Game.update = function() {
     } else if (Ball.direction.y == "up") {
         Ball.position.y -= 5;
     }
+
+    // RAQUET
+
+    // handle arrow down
+    if (Keyboard.keyDown == 40 && ((Raquet.position.y + Raquet.size) < 600 )) {
+        Raquet.position.y += 5;
+
+    // handle arrow up
+    } else if (Keyboard.keyDown == 38 && (Raquet.position.y > 0 )) {
+        Raquet.position.y -= 5;
+    } 
 };
 
 /******************************************************************  
@@ -134,5 +149,17 @@ Game.mainLoop = function() {
 Game.clearCanvas = function() {
     Game.canvasContext.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
 };
+
+// attached in Game.start
+function handleKeyDown(evt) {
+    console.log("EVT : ", evt.keyCode);
+    Keyboard.keyDown = evt.keyCode;
+}
+
+function handleKeyUp(evt) {
+    Keyboard.keyDown = -1;
+}
+
+
 
             
