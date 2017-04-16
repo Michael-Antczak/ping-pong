@@ -1,5 +1,8 @@
-// "use strict";
+"use strict";
 
+/******************************************************************  
+    Define objects used in the game
+******************************************************************/
 var Game = {
     canvas : undefined,
     canvasContext : undefined,
@@ -26,14 +29,27 @@ var Raquet = {
     direction : {
         x : undefined,
         y : undefined,
-    }
+    }, 
+    size : 200,
 
 }
 
+// object that handles user keyboard input
+var Keyboard = {
+    keyDown : -1,
+}
+
+/******************************************************************  
+    Start the Game
+******************************************************************/
 Game.start = function() {
     Game.canvas = document.getElementById('myCanvas');
     Game.canvasContext = Game.canvas.getContext('2d');
     
+    // events to handle user keyboard input
+    document.onkeydown = handleKeyDown;
+    document.onkeyup = handleKeyUp;
+
     // we want to randomize the initial direction of the ball
     // get random odd/even number and the set the direction variable
 
@@ -49,10 +65,16 @@ Game.start = function() {
     Game.mainLoop();
 }
 
-// Loading the game 
+/******************************************************************  
+    Loading the game
+******************************************************************/
 document.addEventListener('DOMContentLoaded', Game.start);
 
-// Update the game world
+
+
+/******************************************************************  
+    Update the game world
+******************************************************************/
 Game.update = function() {
 
     // BALL
@@ -85,9 +107,22 @@ Game.update = function() {
     } else if (Ball.direction.y == "up") {
         Ball.position.y -= 5;
     }
+
+    // RAQUET
+
+    // handle arrow down
+    if (Keyboard.keyDown == 40 && ((Raquet.position.y + Raquet.size) < 600 )) {
+        Raquet.position.y += 5;
+
+    // handle arrow up
+    } else if (Keyboard.keyDown == 38 && (Raquet.position.y > 0 )) {
+        Raquet.position.y -= 5;
+    } 
 };
 
-// The main drawing function
+/******************************************************************  
+    Main drawing function
+******************************************************************/
 Game.draw = function() {
     // draw the Ball
     Game.canvasContext.fillStyle = "blue";
@@ -95,9 +130,12 @@ Game.draw = function() {
 
     // draw the Raquet
     Game.canvasContext.fillStyle = "blue";
-    Game.canvasContext.fillRect(Raquet.position.x, Raquet.position.y, 50, 200);
+    Game.canvasContext.fillRect(Raquet.position.x, Raquet.position.y, 50, Raquet.size);
 };
 
+/******************************************************************  
+    Main loop
+******************************************************************/
 Game.mainLoop = function() {
     Game.clearCanvas();
     Game.update();
@@ -105,8 +143,23 @@ Game.mainLoop = function() {
     window.setTimeout(Game.mainLoop, 1000 / 60);
 };
 
+/******************************************************************  
+    Utility functions
+******************************************************************/
 Game.clearCanvas = function() {
     Game.canvasContext.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
 };
+
+// attached in Game.start
+function handleKeyDown(evt) {
+    console.log("EVT : ", evt.keyCode);
+    Keyboard.keyDown = evt.keyCode;
+}
+
+function handleKeyUp(evt) {
+    Keyboard.keyDown = -1;
+}
+
+
 
             
