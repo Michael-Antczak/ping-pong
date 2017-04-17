@@ -98,7 +98,7 @@ Game.update = function() {
 
     // Check for the collison between the Ball and the Raquet  
     // this is the case when the Ball is PARTIALLY contained withing the Raquet
-    // on the upper right corner of the Raquet
+    // on the UPPER right corner of the Raquet
     if ( (Ball.position.x <= 100) && 
             (Ball.position.x >= 90) && 
             (Ball.direction.x == "left") && 
@@ -109,7 +109,18 @@ Game.update = function() {
             Ball.direction.y = "up";
         }
 
-    // TO DO as above for the other corner
+    // Check for the collison between the Ball and the Raquet  
+    // this is the case when the Ball is PARTIALLY contained withing the Raquet
+    // on the LOWER right corner of the Raquet
+    if ( (Ball.position.x <= 100) && 
+            (Ball.position.x >= 90) && 
+            (Ball.direction.x == "left") && 
+            (Ball.direction.y == "up") &&
+            ( (Raquet.position.y + Raquet.size.y) >= Ball.position.y) && 
+            ( (Raquet.position.y + Raquet.size.y) <= (Ball.position.y + Ball.size.y) )  )  {
+            Ball.direction.x = "right";    
+            Ball.direction.y = "down";
+        }
 
 
     // check if the Ball has reached the left edge of the canvas, if yes then reverse
