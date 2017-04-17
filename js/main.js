@@ -5,7 +5,9 @@
 ******************************************************************/
 var Game = {
     canvas : undefined,
-    canvasContext : undefined,
+    ctx : undefined,
+    width : 1200, 
+    height : 600,
 }
 
 // Ball object 
@@ -51,7 +53,7 @@ var Keyboard = {
 ******************************************************************/
 Game.start = function() {
     Game.canvas = document.getElementById('myCanvas');
-    Game.canvasContext = Game.canvas.getContext('2d');
+    Game.ctx = Game.canvas.getContext('2d');
     
     // events to handle user keyboard input
     document.onkeydown = handleKeyDown;
@@ -169,13 +171,17 @@ Game.update = function() {
     Main drawing function
 ******************************************************************/
 Game.draw = function() {
+
+    // draw background
+    Game.ctx.fillStyle = "black";
+    Game.ctx.fillRect(0, 0, Game.width, Game.height);
     // draw the Ball
-    Game.canvasContext.fillStyle = "blue";
-    Game.canvasContext.fillRect(Ball.position.x, Ball.position.y, 50, 50);
+    Game.ctx.fillStyle = "white";
+    Game.ctx.fillRect(Ball.position.x, Ball.position.y, 50, 50);
 
     // draw the Raquet
-    Game.canvasContext.fillStyle = "blue";
-    Game.canvasContext.fillRect(Raquet.position.x, Raquet.position.y, Raquet.size.x, Raquet.size.y);
+    Game.ctx.fillStyle = "white";
+    Game.ctx.fillRect(Raquet.position.x, Raquet.position.y, Raquet.size.x, Raquet.size.y);
 };
 
 /******************************************************************  
@@ -192,7 +198,7 @@ Game.mainLoop = function() {
     Utility functions
 ******************************************************************/
 Game.clearCanvas = function() {
-    Game.canvasContext.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
+    Game.ctx.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
 };
 
 // attached in Game.start
