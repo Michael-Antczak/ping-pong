@@ -17,6 +17,10 @@ var Ball = {
     direction : {
         x : undefined,
         y : "down",
+    }, 
+    size : {
+        x : 50, 
+        y : 50,
     }
 }
 
@@ -67,7 +71,6 @@ Game.start = function() {
     // Initialise the main loop for the game
     Game.mainLoop();
 }
-
 /******************************************************************  
     Loading the game
 ******************************************************************/
@@ -85,7 +88,31 @@ Game.update = function() {
     if (Ball.position.x >= 1150 && Ball.direction.x == "right") {
         Ball.direction.x = "left";
     }
-    // check if the Ball has reached the right edge of the canvas, if yes then reverse
+
+    // Check for the collison between the Ball and the Raquet first 
+    // this is the case when the Ball is wholly contained withing the Raquet
+    if (Ball.position.x <= 100 && Ball.position.x >= 90 && Ball.direction.x == "left" && (Raquet.position.y <= Ball.position.y) && 
+        ((Raquet.position.y + Raquet.size.y) >= (Ball.position.y + Ball.size.y) )      )  {
+        Ball.direction.x = "right";    
+    } 
+
+    // Check for the collison between the Ball and the Raquet  
+    // this is the case when the Ball is PARTIALLY contained withing the Raquet
+    // on the upper right corner of the Raquet
+    if ( (Ball.position.x <= 100) && 
+            (Ball.position.x >= 90) && 
+            (Ball.direction.x == "left") && 
+            (Ball.direction.y == "down") &&
+            (Raquet.position.y >= Ball.position.y) && 
+            (Raquet.position.y <= (Ball.position.y + Ball.size.y) )  )  {
+            Ball.direction.x = "right";    
+            Ball.direction.y = "up";
+        }
+
+    // TO DO as above for the other corner
+
+
+    // check if the Ball has reached the left edge of the canvas, if yes then reverse
     if (Ball.position.x <= 0 && Ball.direction.x == "left") {
         Ball.direction.x = "right";
     }
