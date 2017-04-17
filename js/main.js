@@ -84,7 +84,7 @@ Game.update = function() {
     // check if the Ball has reached the right edge of the canvas, if yes then reverse
     if (Ball.position.x >= 1150 && Ball.direction.x == "right") {
         Ball.direction.x = "left";
-        
+    }
     // check if the Ball has reached the right edge of the canvas, if yes then reverse
     if (Ball.position.x <= 0 && Ball.direction.x == "left") {
         Ball.direction.x = "right";
@@ -93,7 +93,7 @@ Game.update = function() {
     // check if the Ball has reached the bottom edge of the canvas, if yes then reverse
     if (Ball.position.y >= 550 && Ball.direction.y == "down") {
         Ball.direction.y = "up";
-
+    }
     // check if the Ball has reached the top edge of the canvas, if yes then reverse
     if (Ball.position.y <= 0 && Ball.direction.y == "up") {
         Ball.direction.y = "down";
@@ -102,7 +102,7 @@ Game.update = function() {
     // change the block's position in the desired X direction
     if (Ball.direction.x == "right") {
         Ball.position.x += 10;
-
+    }
     if (Ball.direction.x == "left") {
         Ball.position.x -= 10;
     } 
@@ -110,7 +110,7 @@ Game.update = function() {
     // change the block's position in the desired Y direction
     if (Ball.direction.y == "down") {
         Ball.position.y += 5;
-    
+    }
     if (Ball.direction.y == "up") {
         Ball.position.y -= 5;
     }
@@ -118,9 +118,9 @@ Game.update = function() {
     // RAQUET
 
     // handle arrow down
-    if (Keyboard.keyDown == 40 && ((Raquet.position.y + Raquet.size) < 600 )) {
+    if (Keyboard.keyDown == 40 && ((Raquet.position.y + Raquet.size.y) < 600 )) {
         Raquet.position.y += 5;
-
+    }
     // handle arrow up
     if (Keyboard.keyDown == 38 && (Raquet.position.y > 0 )) {
         Raquet.position.y -= 5;
@@ -137,7 +137,7 @@ Game.draw = function() {
 
     // draw the Raquet
     Game.canvasContext.fillStyle = "blue";
-    Game.canvasContext.fillRect(Raquet.position.x, Raquet.position.y, 50, Raquet.size);
+    Game.canvasContext.fillRect(Raquet.position.x, Raquet.position.y, Raquet.size.x, Raquet.size.y);
 };
 
 /******************************************************************  
@@ -161,12 +161,8 @@ Game.clearCanvas = function() {
 function handleKeyDown(evt) {
     console.log("EVT : ", evt.keyCode);
     Keyboard.keyDown = evt.keyCode;
-}
+};
 
 function handleKeyUp(evt) {
     Keyboard.keyDown = -1;
-}
-
-
-
-            
+};
