@@ -152,10 +152,26 @@ Game.update = function() {
         } else if (Game.lives.updated == false) {
             Game.lives.avail--;
             Game.lives.updated = true;
-            Game.mainLoop();   // this need to be fixed !!!
+            
+            // Ball object 
+            Ball.position.x = 575; 
+            Ball.position.y = 0;
+
+            Ball.direction.x = "right";
+            Ball.direction.y = "down";
+
+            // The user's raquet
+            Raquet.position.x = 50;
+            Raquet.position.y = 50; 
+
+            Raquet.direction.x = undefined;
+            Raquet.direction.y = undefined;
+                    
+
+                }
         }
         
-    }
+    
 
     // check if the Ball has reached the bottom edge of the canvas, if yes then reverse
     if (Ball.position.y >= 550 && Ball.direction.y == "down") {
