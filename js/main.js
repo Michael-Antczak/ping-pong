@@ -146,7 +146,7 @@ Game.update = function() {
     // if yes then GAME OVER
     if (Ball.position.x <= 0 && Ball.direction.x == "left") {
 
-        if (Game.lives <= 0 && Game.lives.updated == false) {
+        if (Game.lives.avail < 1) {
             alert("GAME OVER");
             document.location.reload();
         } else if (Game.lives.updated == false) {
@@ -225,6 +225,9 @@ Game.draw = function() {
     // draw the Raquet
     Game.ctx.fillStyle = "white";
     Game.ctx.fillRect(Raquet.position.x, Raquet.position.y, Raquet.size.x, Raquet.size.y);
+
+    // set the flag again to false, so the lives work properly
+    Game.lives.updated = false;
 
     // Draw the hits and lives
     hitsMade();
